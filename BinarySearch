@@ -1,0 +1,38 @@
+#include<iostream>
+using namespace std;
+int BinarySearch(int arr[],  int target,int Size ) 
+{
+	int First = 0;
+	int Last = Size - 1;
+	while (First <= Last)
+	{
+		int mid = (First + Last) / 2;
+		if (target == arr[mid])
+		{
+			return mid;
+		}
+		else if (target > arr[mid]) 
+		{
+			First = mid + 1;
+		}
+		else 
+		{
+			Last = mid - 1;
+		}
+	}
+	return -1;
+}
+void main() {
+	int arr[] = { 1,2,3,4,5,5,8,7,6,8,4,5,63,79,5,4 };
+	int n = sizeof(arr) / sizeof(arr[0]);
+	int pos= BinarySearch(arr,63, n);
+	if (pos != -1)
+	{
+		cout <<"Fount Element In Pos: "<<pos<<endl;
+	}
+	else {
+		cout << "Not Found"<<pos<<endl;
+	}
+	
+	system("pause");
+}
