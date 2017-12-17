@@ -1,0 +1,133 @@
+#include<iostream>
+#include <conio.h>
+#include <windows.h>
+#include <string>
+using namespace std;
+int DePrime(int n, int i) {
+	if (i == 1)
+		return 1;
+	else
+	{
+		if (n%i == 0)
+			return 0;
+		else
+			return DePrime(n, i - 1);
+
+	}
+}
+//int const size = 10;
+struct Stack {
+	int top;
+	string * arr;
+	int arrSize;
+	Stack(int size) {
+		arrSize = size;
+		arr = new string[arrSize];
+		top = -1;
+	}
+	bool isFull() {
+		if (top == arrSize - 1)
+			return true;
+		return false;
+	}
+	bool isEmpty() {
+		if (top == - 1)
+			return true;
+		return false;
+	}
+	void Push(string data) {
+		if(isFull()){cout << "it's fully";  return;}
+
+		arr[++top] = data;
+
+	}
+	string Pop() {
+		if (isEmpty()) {  return "it's Emptyy"; }
+		
+		string data = arr[top--];
+		return data;
+	}
+	void  Display() {
+		if (isEmpty()) { cout << "it's Emptyy";  return; }
+		for (int i = top; i >= 0; i--)
+		{
+			cout << arr[i] << " ";
+		}
+	}
+	bool Find(string value) {
+		for (int i = top; i >= 0; i--)
+		{
+			if (arr[i] == value) {
+				return true; break;
+			}			
+		}
+		return false;
+	}
+	~Stack() {
+		delete[] arr;
+	}
+	
+};
+
+void main()
+{
+	int usrSize;
+	cout << "Enter Array SIze" << endl;
+	cin >> usrSize;
+	Stack m(usrSize);
+	Stack m1(usrSize);
+	string word;string x,value;
+	char ch;
+	do {
+		int choice;
+		cout << "Chosse \n1.push\n" << "2.pop\n" << "3.display\n"<< "4.Find\n"<< "5.display m1\n"<< "6.Prime m1\n";
+		cout << "Please enter your choice: ";
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			cout << "Enter an string : ";
+			cin >> word;
+			m.Push(word);
+			break;
+		case 2:
+			value=m.Pop();
+			m1.Push(value);
+			break;
+		case 3:
+			m.Display();
+			break;
+		case 4:
+			cout << "Enter the Value for search: " << endl;
+			cin >> word;
+			cout << (m.Find(word) ? "found" : "not found") <<endl;
+			break;
+		case 5:
+			m1.Display();
+			break;
+		case 6:
+			/// DePrime Number
+			int n;
+			cout << "Enter The Number: ";
+			cin >> n;
+			int check = DePrime(n, n / 2);
+			if (check == 1)
+				cout << "Prime" << endl;
+			else
+				cout << "Not Prime" << endl;
+			break;
+		default:
+			cout << "An Invalid Choice!!!\n";
+		}
+		cout << "Do you want to continue ? ";
+		cin >> ch;
+		Sleep(300);
+		system("cls");
+	} while (ch == 'Y' || ch == 'y');
+
+	system("pause");
+
+}
+
+
+
