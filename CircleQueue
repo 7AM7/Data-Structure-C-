@@ -1,0 +1,93 @@
+#include<iostream>
+#include <windows.h>
+using namespace std;
+struct Queue {
+	int front, rear,Size;
+	int *arr;
+	Queue(int size) {
+		front = rear = -1;
+		Size=size;
+		arr = new int[size];
+	}
+	bool isFull() {
+		if ((rear == Size - 1 && front == 0) || front==rear+1) {
+			return false;
+		}
+		return true;
+	}
+	bool isEmpty()
+	{
+		if (front == -1) 
+			return false;
+		return true;
+	}
+	void Insert(int data) {
+		if (!isFull()) { cout << "Queue IsFull" << endl; return; }
+		if (!isEmpty()) { front = 0; }
+		rear = (rear + 1) % Size;
+		arr[rear] = data;
+	}
+	int Delete() {
+		if (!isEmpty()) { cout << "Queue IsEmpty" << endl; return 0; }
+		int data = arr[front];
+		if (rear == front) { rear = front = -1; }
+		if (front == Size - 1) { front = 0; }
+
+		front++;
+		return data;
+	}
+	void Display() {
+		int i = front;
+		while(i!=rear)
+		{
+			cout << arr[i] << endl;
+			i = (i + 1) % Size;
+		}
+		cout << arr[i] << endl;
+		//for (int i = front; i != rear;i=(i+1)%Size)
+		//{
+		//		cout << arr[i] << endl;
+		//}
+	}
+
+};
+void main() {
+		int usrSize;
+		cout << "Enter Array SIze" << endl;
+		cin >> usrSize;
+		Queue m(usrSize);
+		int value,reValue;
+		char ch;
+		do {
+			int choice;
+			cout << "Chosse \n1.push\n" << "2.pop\n" << "3.display\n";
+			cout << "Please enter your choice: ";
+			cin >> choice;
+			switch (choice)
+			{
+			case 1:
+				cout << "Enter Data: ";
+				for (size_t i = 0; i < usrSize; i++)
+				{
+					cin >> value;
+					m.Insert(value);
+				}
+				break;
+			case 2:
+				reValue=m.Delete();
+				cout << "Deleted: " <<reValue<< endl;
+				break;
+			case 3:
+				m.Display();
+				break;
+			default:
+				cout << "An Invalid Choice!!!\n";
+			}
+			cout << "Do you want to continue ? ";
+			cin >> ch;
+			Sleep(300);
+			system("cls");
+		} while (ch == 'Y' || ch == 'y');
+	
+		system("pause");
+}
