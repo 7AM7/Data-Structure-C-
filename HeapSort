@@ -8,24 +8,24 @@ void Swap(int &x,int &y) {
 }
 void HeapiFy(int arr[], int n, int i, int status) {
 
-	int min = i;
+	int value = i;
 	int left = 2 * i + 1;
 	int right = 2 * i + 2;
 	if (status == 0) {
-		if (left < n && arr[left] > arr[min]) /// from min to largest
-			min = left;
-		if (right < n && arr[right]  >arr[min])
-			min = right;
+		if (left < n && arr[left] > arr[value]) /// from min to max
+			value = left;
+		if (right < n && arr[right]  >arr[value])
+			value = right;
 	}
 	else if (status == 1) {
-		if (left < n && arr[left] < arr[min]) /// from min to largest
-			min = left;
-		if (right < n && arr[right] < arr[min])
-			min = right;
+		if (left < n && arr[left] < arr[value]) /// from max to min
+			value = left;
+		if (right < n && arr[right] < arr[value])
+			value = right;
 	}
-	if (min != i) {
-		Swap(arr[i], arr[min]);
-		HeapiFy(arr, n, min,status);
+	if (value != i) {
+		Swap(arr[i], arr[value]);
+		HeapiFy(arr, n, value,status);
 	}
 
 }
