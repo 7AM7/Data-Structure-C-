@@ -1,0 +1,84 @@
+#include<iostream>
+#include <windows.h>
+using namespace std;
+struct Queue {
+	int front, rear,Size;
+	int *arr;
+	Queue(int size) {
+		front = rear = -1;
+		Size=size;
+		arr = new int[size];
+	}
+	bool isFull() {
+		if (rear == Size - 1 ) {
+			return true;
+		}
+		return false;
+	}
+	bool isEmpty()
+	{
+		if (front == rear) 
+			return true;
+		return false;
+	}
+	void Insert(int data) {
+		if (isFull()) { cout << "Queue IsFull" << endl; return; }
+		if (isEmpty()) { front = 0; }
+		
+		arr[++rear] = data;
+	}
+	int Delete() {
+		if (isEmpty()) { cout << "Queue IsEmpty" << endl; return 0; }
+		int data = arr[front];
+		front++;
+		return data;
+	}
+	void Display() {
+
+		for (int i = front; i <= rear;i++)
+		{
+				cout << arr[i] << endl;
+		}
+	}
+
+};
+void main() {
+		int usrSize;
+		cout << "Enter Array SIze" << endl;
+		cin >> usrSize;
+		Queue m(usrSize);
+		int value,reValue;
+		char ch;
+		do {
+			int choice;
+			cout << "Chosse \n1.push\n" << "2.pop\n" << "3.display\n";
+			cout << "Please enter your choice: ";
+			cin >> choice;
+			switch (choice)
+			{
+			case 1:
+				cout << "Enter Data: ";
+				for (size_t i = 0; i < usrSize; i++)
+				{
+					cin >> value;
+					m.Insert(value);
+				}
+				break;
+			case 2:
+				reValue=m.Delete();
+				cout << "Deleted: " <<reValue<< endl;
+				break;
+			case 3:
+				m.Display();
+				break;
+			default:
+				cout << "An Invalid Choice!!!\n";
+			}
+			cout << "Do you want to continue ? Enter(Y): ";
+			cin >> ch;
+			Sleep(300);
+			system("cls");
+		} while (ch == 'Y' || ch == 'y');
+	
+		system("pause");
+}
