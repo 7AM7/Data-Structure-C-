@@ -1,0 +1,175 @@
+#include<iostream>
+using namespace std;
+#define null 0
+struct Node
+{
+	int data;
+	Node*next;
+	Node*previous;
+}*head=new Node;
+
+struct DoublyLinkedList
+{
+	void CreateNode(int n) {
+
+		head->data = n;
+		head->next = NULL;
+		head->previous = NULL;
+	}
+	void InsertFirst(int value) {
+
+		if (head == null) {
+			cout << "Create List First !!" << endl;
+			return;
+		}
+		Node*newNode = new Node;
+		newNode->data = value;
+		newNode->previous = null;
+		newNode->next = head;
+		head->previous = newNode;
+		head= newNode;
+
+	}
+
+	void InsertEnd(int value)
+	{
+		Node*newnode = new Node;
+		newnode->data = value;
+		newnode->next = NULL;
+		if (head == NULL) {
+			newnode->previous = NULL;
+			head = newnode;
+		}
+		else
+		{
+			Node*temp = head;
+			while (temp->next != NULL)
+				temp = temp->next;
+			temp->next = newnode;
+			newnode->previous = temp;
+		}
+	}
+
+	void InsertPosition(int value, int pos)
+	{
+		int i;
+		if (head == NULL)
+		{
+			cout << "go to create list" << endl;
+			return;
+		}
+		Node * temp;
+
+		for (i = 0, temp = head; i < pos - 1; i++)
+		{
+			temp = temp->next;
+			if (temp == NULL)
+			{
+				cout << "three are less than" << pos << " elements in list";
+				return;
+			}
+		}
+		Node*newnode = new Node;
+		newnode->data = value;
+		if (temp->next == NULL)
+		{
+			newnode->next = NULL;
+			temp->next = newnode;
+			newnode->previous = temp;
+		}
+		else
+		{
+			newnode->next = temp->next;
+			newnode->previous = temp;
+			temp->next = newnode;
+		}
+	}
+
+	void DeleteItem(int value)
+	{
+		
+		Node*temp;
+		//Check If Item Is First Item
+		if (head->data == value)
+		{
+			temp = head;
+			head = head->next;
+			head->previous = NULL;
+			cout << "Item Deleted" << endl;
+			delete temp;
+			return;
+		}
+		//Check If Item Is Between First & Last
+		Node*q = head;
+		while (q->next->next != NULL)
+		{
+			if (q->next->data == value) {
+				temp = q->next;
+				q->next = temp->next;
+				temp->next->previous = q;
+				delete temp;
+				return;
+			}
+			q = q->next;
+		}
+		//Check If Item Is Last Item
+		if (q->next->data == value)
+		{
+			temp = q->next;
+			delete temp;
+			q->next = NULL;
+			return;
+		}
+	}
+	void Reverse() {
+		if (head == NULL) {
+			cout << "List is empty" << endl;
+			return;
+		}
+		Node*p1,*p2;
+		p1 = head;
+		p2 = p1->next;
+		p1->next = null;
+		p1->previous = p2;
+		while (p2!= null)
+		{
+			p2->previous = p2->next;
+			p2->next = p1;
+			p1 = p2;
+			p2 = p2->previous;
+		}
+		head=p1;
+	}
+	void Display()
+	{
+		if (head == NULL) {
+			cout << "List is empty" << endl;
+			return;
+		}
+		Node*temp = head;
+		while (temp != NULL)
+		{
+			cout << temp->data << " ";
+			temp = temp->next;
+		}
+		cout << endl;
+	}
+};
+void main()
+{
+
+	DoublyLinkedList linked;
+	linked.CreateNode(10);
+	linked.InsertFirst(5);
+	linked.InsertEnd(9);
+	linked.InsertPosition(4, 1);
+	linked.Display();
+	cout << "After Delete: " << endl;
+	linked.DeleteItem(5);
+	linked.Display();
+	cout << "After Reverse: "<<endl;
+	linked.Reverse();
+	linked.Display();
+
+	system("pause");
+}
