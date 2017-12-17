@@ -1,0 +1,145 @@
+#include<iostream>
+using namespace std;
+void Create(int arr[],int arrSize)
+{
+	for (int i = 0; i < arrSize; i++)
+	{
+		cin >> arr[i];
+	}
+}
+void Insert(int arr[], int arrSize,int element,int index)
+{
+	if (index > arrSize)
+		return;
+
+	for (int i = arrSize; i >= index; i--)
+	{
+		arr[i+1] = arr[i];
+	}
+	arr[index] = element;
+}
+void Delete(int arr[], int arrSize, int element)
+{
+
+	for (int i = 0;i < arrSize; i++)
+	{
+		if (arr[i] == element) {
+			for (int j = i; j < arrSize - 1; j++)
+			{
+				arr[j] = arr[j + 1];
+			}
+			break;
+		}
+	}
+}
+void Display(int arr[],int arrSize,int flag=0) {
+
+	for (int i = 0; i < arrSize; i++)
+	{
+		cout << arr[i] << endl;
+	}
+}
+void Reverse(int arr[],int arrSize) {
+	int temp;
+	for (int i = 0,j=arrSize-1; i < arrSize/2; i++,j--)
+	{
+		temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+}
+bool Search(int arr[], int arrSize,int value) {
+		for (int i = 0; i <arrSize; i++)
+		{
+			if (arr[i] == value) {
+				return true; break;
+			}			
+		}
+		return false;
+	}
+void main()
+{
+	int arrSize=0, arrSize1=0, arrSize2=0,n, arrSize3 = 0,value,index,n1,n2,nBig;
+	int *arr = new int[arrSize];
+	int *arr1 = new int[arrSize1];
+	int *arr2 = new int[arrSize2];
+	int *BigArr = new int[arrSize3];
+		char ch;
+		do {
+			int choice;
+
+			cout << "Chosse \n1.Creat\n" << "2.Insert\n" << "3.Delete\n"<< "4.Search\n"<< "5.Merge \n"<<"6.Resverse \n" << "7.Display \n";
+			cout << "Please enter your choice: ";
+			cin >> choice;
+			switch (choice)
+			{
+			case 1:
+				cout << "Enter Array SIze" << endl;
+				cin >> n;
+				arrSize = n;
+				cout << "Enter The Array Elements" << endl;
+				Create(arr, arrSize);
+				break;
+			case 2:
+				Display(arr, arrSize);
+				cout << "Enter The Index For old Element: ";
+				cin >> index;
+				cout << "Enter The New Element: ";
+				cin >> value;
+				Insert(arr, arrSize, value, index);
+				cout << "After Changed :"<<endl;
+				Display(arr, arrSize);
+				break;
+			case 3:
+				Display(arr, arrSize);
+				cout << "Enter The Element For Delete: ";
+				cin >> value;
+				Delete(arr, arrSize, value);
+				cout << "After Changed :" << endl;
+				Display(arr, arrSize-1);
+				break;
+			case 4:
+				cout << "Enter the Value for search: " << endl;
+				cin >> value;
+				cout << (Search(arr,arrSize,value) ? "found" : "not found") << endl;
+				break;
+			case 5:
+				cout << "Enter First Array SIze" << endl;
+				cin >> n1;
+				arrSize1 = n1;
+				cout << "Enter The First Array Elements" << endl;
+				Create(arr1, arrSize1);
+				cout << "Now ! Enter Second Array SIze" << endl;
+				cin >> n2;
+				arrSize2 = n2;
+				cout << "Enter The Second Array Elements" << endl;
+				Create(arr2, arrSize2);
+
+				arrSize3 = n1+n2;
+				for (int i = 0; i <n1; i++)
+				{
+					BigArr[i] = arr1[i];
+				}
+				for (int i = 0,j=n1; i <=arrSize3; i++,j++)
+				{
+					BigArr[j] = arr2[i];
+				}
+				cout << "After Marging :" << endl;
+				Display(BigArr, arrSize3);
+				break;
+			case 6:
+				Reverse(arr, arrSize);
+				Display(arr, arrSize);
+				break;
+			case 7:
+				Display(arr, arrSize);
+				break;
+			default:
+				cout << "An Invalid Choice!!!\n";
+			}
+			cout << "Do you want to continue ? ";
+			cin >> ch;
+			system("cls");
+		} while (ch == 'Y' || ch == 'y');
+	system("pause");
+}
