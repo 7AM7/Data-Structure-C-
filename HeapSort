@@ -1,0 +1,73 @@
+#include<iostream>
+#include <windows.h>
+using namespace std;
+void Swap(int &x,int &y) {
+	int temp = x;
+	x = y;
+	y = temp;
+}
+void HeapiFy(int arr[], int n, int i, int status) {
+
+	int min = i;
+	int left = 2 * i + 1;
+	int right = 2 * i + 2;
+	if (status == 0) {
+		if (left < n && arr[left] > arr[min]) /// from min to largest
+			min = left;
+		if (right < n && arr[right]  >arr[min])
+			min = right;
+	}
+	else if (status == 1) {
+		if (left < n && arr[left] < arr[min]) /// from min to largest
+			min = left;
+		if (right < n && arr[right] < arr[min])
+			min = right;
+	}
+	if (min != i) {
+		Swap(arr[i], arr[min]);
+		HeapiFy(arr, n, min,status);
+	}
+
+}
+void HeapSort(int arr[],int n, int status) {
+	for (int i = (n/2)-1; i >=0; i--)
+	{
+		HeapiFy(arr, n, i, status);
+	}
+	for (int i = n - 1; i >= 0; i--)
+	{
+		Swap(arr[0], arr[i]);
+		HeapiFy(arr, i, 0, status);
+	}
+}
+void PrintHeap(int arr[], int n) {
+	for (int i = 0; i < n; i++)
+	{
+		cout << arr[i] << " " << endl;
+	}
+}
+void main() {
+	int status, n, x;
+	do {
+
+		cout << "Enter Array Size: ";
+		cin >> n;
+		int *arr = new int[n];
+		cout << "Enter Array Element:" << endl;
+		for (int i = 0; i < n; i++)
+		{
+			cin >> arr[i];
+		}
+		cout << "Enter 0 For Min To Max \nEnter 1 For Max To Min" << endl;
+		cin >> status;
+
+		HeapSort(arr, n, status);
+
+		PrintHeap(arr, n);
+		cout << "Enter 99 for Exit else for keep run: ";
+		cin >> x;
+		Sleep(300);
+		system("cls");
+	} while (x != 99);
+	system("pause");
+}
