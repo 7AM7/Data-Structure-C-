@@ -1,0 +1,110 @@
+#include<iostream>
+using namespace std;
+#define null 0
+struct Node
+{
+	int data;
+	Node*next;
+}*head=new Node;
+struct SingalLinkedList {
+
+	void CreateNode(int n) {
+		head->data = n;
+		head->next = NULL;
+	}
+
+	void InsertFirst(int value) {
+		Node*newNode = new Node;
+		newNode->data = value;
+		newNode->next = head;
+		head = newNode;
+
+	}
+
+	void InsertEnd(int value)
+	{
+		Node*newNode = new Node;
+		
+		newNode->data = value;
+		newNode->next = null;
+		Node*temp=head;
+		while (temp->next != null)
+		{
+			temp = temp->next;
+		}
+		temp->next = newNode;
+			
+	}
+
+	void DeleteFirst() {
+		Node*temp = head;
+		cout << temp->data << " is Deleted" << endl;
+		head = temp->next;
+		free(temp);
+	}
+
+	void DeleteLast()
+	{
+		Node*lastElement, *BeforLastElement;
+		lastElement = head;
+		BeforLastElement = lastElement;
+		while (lastElement->next != null)
+		{
+			BeforLastElement = lastElement;
+			lastElement = lastElement->next;
+		}
+		cout << lastElement->data << " is Deleted" << endl;
+		free(lastElement);
+		BeforLastElement->next = null;
+	}
+	void Reverse()
+	{
+		Node*p1, *p2, *p3;
+		p1 = head;
+		p2 = p1->next;
+		p3 = p2->next;
+		p1->next = null;
+		p2->next = p1;
+		while (p3!=null)
+		{
+			p1 = p2;
+			p2 = p3;
+			p3 = p3->next;
+			p2->next = p1;
+			
+		}
+		head = p2;
+	}
+	void Display() {
+		Node*temp = head;
+		while (temp != null)
+		{
+			cout << temp->data << " ";
+			temp = temp->next;
+		}
+		cout << endl;
+	}
+};
+void main() {
+	SingalLinkedList linked;
+	linked.CreateNode(5);
+	linked.InsertFirst(6);
+	linked.InsertEnd(7);
+	linked.InsertEnd(9);
+	linked.InsertEnd(56);
+	linked.Display();
+	cout << endl;
+	cout << "After Delete First: " << endl;
+	linked.DeleteFirst();
+	linked.Display();
+	cout << endl;
+	cout << "After Delete Last: " << endl;
+	linked.DeleteLast();
+	linked.Display();
+	cout << endl;
+	cout << "After Reverse: " << endl;
+	linked.Reverse();
+	linked.Display();
+	cout << endl;
+	system("pause");
+}
