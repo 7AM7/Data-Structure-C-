@@ -1,0 +1,222 @@
+#include<iostream>
+#include<string>
+using namespace std;
+#define null 0
+string differencesLinked1 = "";
+string differencesLinked2 = "";
+struct SingalLinkedList {
+	
+	struct Node
+	{
+		int data;
+		Node*next;
+	}*head = new Node;
+	void CreateNode(int n) {
+		head->data = n;
+		head->next = NULL;
+	}
+
+	void InsertFirst(int value) {
+		Node*newNode = new Node;
+		newNode->data = value;
+		newNode->next = head;
+		head = newNode;
+
+	}
+
+	void InsertEnd(int value)
+	{
+		Node*newNode = new Node;
+		
+		newNode->data = value;
+		newNode->next = null;
+		Node*temp= head;
+		while (temp->next != null)
+		{
+			temp = temp->next;
+		}
+		temp->next = newNode;
+			
+	}
+
+	void DeleteFirst() {
+		Node*temp = head;
+		cout << temp->data << " is Deleted" << endl;
+		head = temp->next;
+		free(temp);
+	}
+
+	void DeleteLast()
+	{
+		Node*lastElement, *BeforLastElement;
+		lastElement = head;
+		BeforLastElement = lastElement;
+		while (lastElement->next != null)
+		{
+			BeforLastElement = lastElement;
+			lastElement = lastElement->next;
+		}
+		cout << lastElement->data << " is Deleted" << endl;
+		free(lastElement);
+		BeforLastElement->next = null;
+	}
+
+	void MiddleElement()
+	{
+		Node *p1, *p2; 
+		p1=p2= head;
+		while (p1->next != NULL)
+		{
+			p1 = p1->next->next;
+			p2 = p2->next;
+		}
+		cout << p2->data;
+	}
+
+	void Element3rd() {
+		Node*p1, *p2;
+		p1 = head;
+		p2 = p1->next->next;
+		while (p2->next!=null) {
+			p1 = p1->next;
+			p2 = p1->next->next;
+		}
+		cout << p1->data << endl;
+	}
+	void Reverse()
+	{
+		Node*p1, *p2, *p3;
+		p1 = head;
+		p2 = p1->next;
+		p3 = p2->next;
+		p1->next = null;
+		p2->next = p1;
+		while (p3!=null)
+		{
+			p1 = p2;
+			p2 = p3;
+			p3 = p3->next;
+			p2->next = p1;
+			
+		}
+		head = p2;
+	}
+	void Display() 
+	{
+		Node*temp = head;
+		while (temp != null)
+		{
+			cout << temp->data << " ";
+			temp = temp->next;
+		}
+		cout << endl;
+	}
+	void Marge(Node *b) {
+
+		Node *temp = head;
+		while (temp->next != null) {
+			temp = temp->next;
+		}
+		temp->next = b;
+	}
+	int Compare(Node *b)
+	{
+		differencesLinked1 = "";
+		differencesLinked2 = "";
+		if(head == null && b == null) return 1;
+		if (head == null || b == null) return 0;
+		int c = 0;
+		Node *temp = head;
+		Node *temp1 = b;
+
+		while (temp!= null&& temp1!= null) 
+		{
+			if (temp->data != temp1->data) {
+				c++;
+				differencesLinked1 += to_string(temp->data)+" ";
+				differencesLinked2 += to_string(temp1->data)+" ";
+			}
+			temp = temp->next;
+			temp1 = temp1->next;
+
+		}
+		if (temp== null || temp1 == null) {
+			c = 1;
+		}
+		return c;
+
+	}
+};
+
+void main() {
+	SingalLinkedList linked, linked2;
+	linked.CreateNode(5);
+	linked.InsertEnd(12);
+	linked.InsertEnd(13);
+	linked.InsertEnd(14);
+	linked.InsertEnd(15);
+	linked.InsertEnd(16);
+	linked.InsertEnd(11);
+	cout << "First Linked: " << endl;
+	linked.Display();
+	cout << endl;
+	cout << "Middle Element: ";
+	linked.MiddleElement();
+	cout << endl;
+	cout << "3rd Element From End: ";
+	linked.Element3rd();
+	cout << endl;
+
+	linked2.CreateNode(5);
+	linked2.InsertEnd(12);
+	linked2.InsertEnd(13);
+	linked2.InsertEnd(14);
+	linked2.InsertEnd(15);
+	linked2.InsertEnd(18);
+	linked2.InsertEnd(17);
+	cout << "Second Linked: " << endl;
+	linked2.Display();
+	cout << endl;
+	cout << "Middle Element: ";
+	linked2.MiddleElement();
+	cout << endl;
+	cout << "3rd Element From End: ";
+	linked.Element3rd();
+	cout << endl;
+
+	cout << "Compare :" << endl;
+	int result = linked.Compare(linked2.head);
+	if (result>0) {
+		cout << "Not Same Linked Because" << endl;
+		cout << "The Elements: " << differencesLinked1 << " In First Linked Is difference With Elements " << differencesLinked2 << " In Second Linked" << endl;
+	}
+	else {
+		cout << "Same Linked" << endl;
+	}
+	cout << endl;
+
+	//marge linked2 in linked1
+	linked.Marge(linked2.head);
+	cout << "First Linked After Marge: " << endl;
+	linked.Display();
+	cout << endl;
+
+
+
+	//for (int i = 1; i <= 30; i++)
+	//{
+	//	linked.InsertEnd(i);
+	//}
+	//linked.Display();
+	//cout << endl;
+	//cout << "After Delete First: " << endl;
+	//linked.DeleteFirst();
+	//linked.Display();
+	//cout << endl;
+	//cout << "After Delete Last: " << endl;
+	//linked.DeleteLast();
+	//linked.Display();
+	//cout << endl;
+	system("pause");
+
+}
