@@ -83,6 +83,25 @@ struct SingalLinkedList {
 		}
 		cout << p1->data << endl;
 	}
+	void Sort()
+	{
+		bool unsorted = true;
+		Node*cur, *next;
+
+		while (unsorted) {
+			unsorted = false;
+			cur = head;
+			while (cur->next != nullptr) {
+				next = cur->next;
+				if (next->data < cur->data) {
+					swap(cur->data, next->data);
+					unsorted = true;
+				}
+
+				cur = cur->next;
+			}
+		}
+	}
 	void Reverse()
 	{
 		Node*p1, *p2, *p3;
@@ -94,7 +113,7 @@ struct SingalLinkedList {
 		while (p3!=null)
 		{
 			p1 = p2;
-			p2 = p3;
+			p2 = p3;	
 			p3 = p3->next;
 			p2->next = p1;
 			
@@ -118,6 +137,7 @@ struct SingalLinkedList {
 			temp = temp->next;
 		}
 		temp->next = b;
+		Sort();
 	}
 
 	int Compare(Node *b)
