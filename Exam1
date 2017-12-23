@@ -119,6 +119,19 @@ struct SingalLinkedList {
 		}
 		temp->next = b;
 	}
+	void Sort()
+	{
+		Node*cur, *next;
+		cur = head;
+		while (cur->next != nullptr) {
+			next = cur->next;
+			if (next->data < cur->data) {
+				swap(cur->data, next->data);
+			}
+
+			cur = cur->next;
+		}
+	}
 	int Compare(Node *b)
 	{
 		differencesLinked1 = "";
